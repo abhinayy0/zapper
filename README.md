@@ -2,6 +2,8 @@
 
 Zapper is a file downloading utility in python.
 
+> :warning: **Alpha version**: Under heavy development. Not unit tested api may break in future. Use with caution!
+
 ### Built With
 
 - [Click](https://click.palletsprojects.com/en/8.1.x/)
@@ -26,8 +28,6 @@ Install project using pip.
 ![user screen](/screenshots/usage.png?raw=true "Zapper")
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-> :warning: **Alpha version**: Not unit tested api may break in future. Under development!
 
 <!-- CONTRIBUTING -->
 
