@@ -35,13 +35,13 @@ def check_range_header(url):
         if header not in rv.headers.keys():
             click.secho("File can not be downloaded", fg="red")
             sys.exit(1)
-    click.secho(f"Metadata about the file ")
+    click.secho("Metadata about the file ")
 
     print(f"File Type {rv.headers['Content-Type']}")
     print(f'File Size {int(rv.headers["Content-Length"])//(1024*1024)} MB')
     if "Accept-Ranges" not in rv.headers:
-        print(f"File does not support concurrent downloading", fg="yellow")
-        print(f"Normal downloading will be used", fg="yellow")
+        print("File does not support concurrent downloading", fg="yellow")
+        print("Normal downloading will be used", fg="yellow")
         support_concurrency = False
 
     cleaned_url = unquote_plus(url)
@@ -117,13 +117,11 @@ def download_concurrently(url, filename, content_length, concurrency=3):
     output_file = os.path.join("zapper_temp", "temp")
     split = content_length // concurrency
     file_ranges = []
-    file_count = 0
-    for i in range(0, content_length, split + 1):
+    for file_count, i in enumerate(range(0, content_length, split + 1)):
         ct = i + split
         if i + split > content_length:
             ct = content_length
         file_ranges.append((url, output_file + str(file_count), i, ct))
-        file_count += 1
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
         executor.map(ranged_download, file_ranges)
